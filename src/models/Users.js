@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const db = require('./../db');
 const Schema = mongoose.Schema;
 const yup = require('yup');
 
@@ -12,7 +13,6 @@ const userSchema = new Schema({
     lastName: {
         type: String,
         required: true,
-
     },
     role: {
         type: String,
@@ -27,8 +27,14 @@ const userSchema = new Schema({
         },
         unique: true,
     },
+    chats: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Chat',
+        },
+    ],
 });
 
-const User = mongoose.model('User', userSchema);
+const User = db.model('User', userSchema);
 
 module.exports = User;
